@@ -2,7 +2,7 @@
 def create_powers_dict():
     return {
         "hydra sword": {
-            "damage": 300,
+            "damage": 50,
             "type": "melee",
             "information": "a ... sword",
             "rarity": "Very rare",

@@ -10,6 +10,9 @@ from class_font import print_fonts
 
 import textwrap
 
+
+
+
 def handle_choices(player):
 
     """Handles the player's choices in Scene 1."""

@@ -2,6 +2,8 @@ from utilities import clear_terminal, display_text, press_enter_arrow
 
 from class_font import print_fonts
 
+from scene2_events import handle_choices2, handle_scene2, scene2_apologize, scene2_complain
+
 # Handle Forest Event
 def handle_forest_event(player):
     """Handles the initial forest sequence after prologue."""
@@ -140,7 +142,7 @@ def post_battle_dialogue(player):
     Jerry: Well, encountering that dragonfly was real weird.
     I don't know what's happening, but experiencing all of these crazy events
     in this forest has made me appreciate life just the smallest bit.
-    But that creature jumping out of nowhere gave me the spooks.
+    But that creature jumping out of no where gave me the spooks.
     After your time at the forest, you decide to head back to your parent's
     house. 
     Jerry: Hopefully mom doesn't yell at me for this."""
@@ -153,3 +155,18 @@ def post_battle_dialogue(player):
         color=(255, 255, 255),  # Color: light blue
         delay=0.02,  # 0.05-second delay between characters
     )
+
+    clear_terminal()
+    handle_scene2(player)
+
+
+
+
+
+
+
+
+
+
+
+

@@ -25,7 +25,7 @@ def tutorial():
 
     #TODO YOU'RE ON GIVING AN EXAMPLE OF AN ITEM FROM THE CREATE SHOP ITEMS
     # DICT
-    shop_items_dict = create_shop_items_dict()
+    # shop_items_dict = create_shop_items_dict()
 
     done = False
     while not done:
@@ -127,8 +127,8 @@ def tutorial():
                     0.0)
 
         press_enter_arrow()
-
-        print(items_undiscovered_dict[])
+        print("This is a work in progress")
+        # print(items_undiscovered_dict[])
 
 
 
