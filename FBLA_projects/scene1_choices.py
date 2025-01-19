@@ -3,15 +3,12 @@ from utilities import (
 )
 from scene1_events import (
     handle_forest_event, explore_cave, go_swimming,
-    handle_battle, post_battle_dialogue
+    handle_battle
 )
 
 from class_font import print_fonts
 
 import textwrap
-
-
-
 
 def handle_choices(player):
 
@@ -20,9 +17,9 @@ def handle_choices(player):
     choice_string = """
     While you're outdoors, you want to explore somewhere before you
     return home:
-    
+
     1 - Explore a cave
-    2 - Go out swimming 
+    2 - Go out swimming
     stop - Leave story\n"""
     choice_string = textwrap.dedent(choice_string).strip()
 
@@ -33,7 +30,7 @@ def handle_choices(player):
             text=choice_string,  # List the stores text
             font_type="italic",  # Style: "italics"
             color=(255, 255, 255),  # Color: light blue
-            delay=0.02,  # 0.05-second delay between characters
+            delay=0.02,  # 0.02-second delay between characters
         )
 
         choice = input('Choice: ').strip()

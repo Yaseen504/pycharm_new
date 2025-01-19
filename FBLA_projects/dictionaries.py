@@ -5,37 +5,37 @@ def create_powers_dict():
             "damage": 50,
             "type": "melee",
             "information": "a ... sword",
-            "rarity": "Very rare",
-        },
-        "bow": {
-            "damage": 15,
-            "type": "ranged",
-            "information": "a ... bow",
-            "rarity": "not rare",
-        },
-        "dagger": {
-            "damage": 12,
-            "type": "melee",
-            "information": "a ... dagger",
             "rarity": "rare",
         },
-        "stick": {
-            "damage": 5,
+        "heavenly staff": {
+            "damage": 75,
+            "type": "ranged",
+            "information": "a powerful staff",
+            "rarity": "epic",
+        },
+        "forest vines": {
+            "damage": 60,
             "type": "melee",
-            "information": "a ... stick",
-            "rarity": "uncommon",
+            "information": "deadly vines that pack a punch",
+            "rarity": "epic",
+        },
+        "ferocious scythe": {
+            "damage": 100,
+            "type": "melee",
+            "information": "a ... briliant blade",
+            "rarity": "mythical",
+        },
+        "iron gauntlets": {
+            "damage": 85,
+            "type": "melee",
+            "information": "turns your fists into weapons",
+            "rarity": "epic",
         },
         "fist": {
-            "damage": 15,
+            "damage": 20,
             "type": "melee",
             "information": "your hands",
-            "rarity": "default",
-        },
-        "rock": {
-            "damage": 20,
-            "type": "throwable",
-            "information": "a ... rock",
-            "rarity": "everywhere",
+            "rarity": "common",
         },
         "venom": {
             "damage": 20,
@@ -53,13 +53,31 @@ def create_powers_dict():
 
 
 def create_items_undiscovered_dict():
+    """Some items will have damage properties that can used with the
+        throw choice in battles."""
+
     return {
         "Apple": {"heal": 50, "quantity": 50},
         "Bread": {"heal": 10, "quantity": 2},
         "Health Potion": {"heal": 50, "quantity": 5},
         "Mana Potion": {"heal": 50, "quantity": 3},
-        "Elixir": {"heal": 100, "quantity": 20},
+        "Elixir": {"heal": 70, "quantity": 20},
         "Cooked Fish": {"heal": 10, "quantity": 20},
+        "Divine Bread": {"heal": 100, "quantity": 20},
+        "Scarlet Dragonfruit": {"heal": 90, "quantity": 20},
+
+        "Elixir": {
+            "heal": 80,
+            "quantity": 10,
+            "info": "A delicious and sharp bottle.",
+            "damage": 40
+        },
+        "Cooked Fish": {
+            "heal": 20,
+            "quantity": 2,
+            "info": "Burnt fish that may or may not taste good.",
+            "damage": 10
+        }
     }
 
 
@@ -77,7 +95,7 @@ def create_shop_items_dict():
             "quantity": 2,
             "price": 100,
             "info": "A loaf of bread to regain energy and stamina.",
-            "rarity": "Uncommon",
+            "rarity": "Common",
         },
         "Health Potion": {
             "heal": 50,
@@ -91,7 +109,7 @@ def create_shop_items_dict():
             "quantity": 1,
             "price": 1000,
             "info": "A legendary elixir that restores full health and mana.",
-            "rarity": "Legendary",
+            "rarity": "Epic",
         },
         "Crystal Shard": {
             "heal": 25,

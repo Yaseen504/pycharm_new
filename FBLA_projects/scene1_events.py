@@ -1,5 +1,5 @@
 from utilities import clear_terminal, display_text, press_enter_arrow
-
+from class_character import Character
 from class_font import print_fonts
 
 from scene2_events import handle_choices2, handle_scene2, scene2_apologize, scene2_complain
@@ -7,6 +7,9 @@ from scene2_events import handle_choices2, handle_scene2, scene2_apologize, scen
 # Handle Forest Event
 def handle_forest_event(player):
     """Handles the initial forest sequence after prologue."""
+
+    print("|Scene 1: Jerry explores nature|")
+    print("-------------------------------")
 
     forest_text_1 = """
     Because you feel bored of doing nothing but watching T.V and sleeping,
@@ -41,9 +44,10 @@ def handle_forest_event(player):
         delay=0.02,  # 0.05-second delay between characters
     )
 
-    print("\t|Hydra Blade is now one of your powers!|\n")
-    player.character.battle.grant_powers("hydra sword")
+    player.character.battle.grant_powers("hydra sword", message=True)
+    press_enter_arrow()
     player.character.character_stats()
+    press_enter_arrow()
 
 
 # Explore Cave
@@ -67,18 +71,16 @@ def explore_cave(player):
     )
 
     # Add elixirs to inventory
-    player.character.inventory.add_items("Elixir", 3)
+    player.character.inventory.add_items("Elixir", 3, message=True)
     player.character.character_stats()
 
 
 # Go Swimming
-
-
 def go_swimming(player):
     """Handles the swimming event."""
 
     swimming_text = """
-    You go out to swim in the waters. Even though you don't know how to swim, 
+    You go out to swim in the waters. Even though you don't know how to swim,
     you don't care since who would care about what happened to you either way.
     While swimming, you encounter a fish and decide to cook it with the
     lighter you stole from your parents.
@@ -96,7 +98,7 @@ def go_swimming(player):
     )
 
     # Add cooked fish to inventory
-    player.character.inventory.add_items("Cooked Fish", 1)
+    player.character.inventory.add_items("Cooked Fish", 1, message=True)
     player.character.character_stats()
 
 
@@ -129,44 +131,23 @@ def handle_battle(player, mortimer):
     player.character.battle.fight(mortimer)
 
     if player.character.bars_num > 0:
-        post_battle_dialogue(player)
+        post_fight_text = """
+        Jerry: Well, encountering that dragonfly was real weird.
+        I don't know what's happening, but experiencing all of these crazy
+        events in this forest has made me appreciate life just the smallest bit.
+        But that creature jumping out of no where gave me the spooks.
+        After your time at the forest, you decide to head back to your parent's
+        house.
+        Jerry: Hopefully mom doesn't yell at me for this."""
+        press_enter_arrow()
+        clear_terminal()
+        display_text(
+            text=post_fight_text,  # List the stores text
+            lines_per_chunk=2,  # Display 2 lines at a time
+            font_type="default",  # Style: "italics"
+            color=(255, 255, 255),  # Color: light blue
+            delay=0.02,  # 0.05-second delay between characters
+        )
+        return "scene2"
     else:
         input("You have been defeated. GAME OVER")
-
-
-# Post Battle Dialogue
-def post_battle_dialogue(player):
-    """Handles the dialogue and events after the battle."""
-
-    post_fight_text = """
-    Jerry: Well, encountering that dragonfly was real weird.
-    I don't know what's happening, but experiencing all of these crazy events
-    in this forest has made me appreciate life just the smallest bit.
-    But that creature jumping out of no where gave me the spooks.
-    After your time at the forest, you decide to head back to your parent's
-    house. 
-    Jerry: Hopefully mom doesn't yell at me for this."""
-
-    clear_terminal()
-    display_text(
-        text=post_fight_text,  # List the stores text
-        lines_per_chunk=2,  # Display 2 lines at a time
-        font_type="default",  # Style: "italics"
-        color=(255, 255, 255),  # Color: light blue
-        delay=0.02,  # 0.05-second delay between characters
-    )
-
-    clear_terminal()
-    handle_scene2(player)
-
-
-
-
-
-
-
-
-
-
-
-

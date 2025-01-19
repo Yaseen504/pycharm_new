@@ -31,7 +31,7 @@ def tutorial():
     while not done:
         clear_terminal()
         print("\n\n\tTutorial")
-        print("_-______________________________-_\n")
+        print("_-____________________-_\n")
 
         # arrow symbol
         subtitle = "Arrow symbol"
@@ -42,8 +42,8 @@ def tutorial():
 
         arrow_string = """
         To begin, when an arrow (->) appears on the screen,
-        that indicates that you must press enter to progress onto the 
-        story. This will be used for the rest of this tutorial as 
+        that indicates that you must press enter to progress onto the
+        story. This will be used for the rest of this tutorial as
         well as the game!
         """
 
@@ -62,7 +62,7 @@ def tutorial():
         Next is the <s?> symbol. This symbol
         indicates that you're allowed to skip text by pressing s.
         If you do anything but press s, the story will continue normally
-        
+
         Lets show you some examples!
         Trying skipping on the first and not skipping on the second
         """
@@ -83,7 +83,7 @@ def tutorial():
         """
         tutorial_skip_example(skip_example_string, 1)
 
-        example = "Example 1"
+        example = "Example 2"
         print_fonts(example,
                     "bold",
                     (255, 255, 255),
@@ -118,8 +118,8 @@ def tutorial():
         rarities = """
         Common
         Rare
-        Mythic
         Epic
+        Mythical
         """
         print_fonts(rarities,
                     "bold",
@@ -198,9 +198,3 @@ def tutorial():
             break
         else:
             print("Invalid, try again!")
-
-
-
-
-
-

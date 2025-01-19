@@ -26,7 +26,6 @@ def print_fonts(text: str, font_type: str = "default",
        "underline": "4",
    }
 
-
    # Get the style code
    style_code = styles.get(font_type.lower(), "0")
 

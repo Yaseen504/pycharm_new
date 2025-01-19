@@ -47,7 +47,7 @@ def initialize_characters():
     mortimer = create_enemy()
 
     # Powers are weapons characters use to attack
-    player.character.battle.grant_powers("fist")
-    mortimer.character.battle.grant_powers("venom", "sting")
+    player.character.battle.grant_powers("fist", message=False)
+    mortimer.character.battle.grant_powers("venom", "sting", message=False)
 
     return player, mortimer

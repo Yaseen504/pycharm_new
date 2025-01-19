@@ -1,11 +1,12 @@
 from class_character import Character
-from class_inventory import  Inventory
+from class_inventory import Inventory
 from colorama import Fore, Style, init
 import math
 import random
 from class_font import print_fonts
 init()
 
+"""This is the battle class where player1 fights player2"""
 
 class Battle:
    def __init__(self, character: Character):
@@ -21,6 +22,37 @@ class Battle:
        self.exit = "(Type 'exit' to [exit]): "
 
 
+
+
+
+
+   def update_health_by(self, delta):
+       self.character.bars_num = min(
+           max(0, self.character.bars_num + delta),
+           self.character.max_bars_num)
+       if self.character.bars_num >= self.character.max_bars_num:
+           self.character.bars_num = self.character.max_bars_num
+
+
+       self.character.health = self.character.symbol_of_health * int((round(self.character.bars_num) / self.character.scale_health))  # Use self.character
+
+
+       return self.character.bars_num
+
+
+   def update_health_to(self, delta):
+       self.character.bars_num = min(max(0, delta),
+                                     self.character.max_bars_num)
+       if self.character.bars_num >= self.character.max_bars_num:
+           self.character.bars_num = self.character.max_bars_num
+
+
+       self.character.health = self.character.symbol_of_health * int(
+           (round(
+               self.character.bars_num) / self.character.scale_health))  # Use self.character
+
+
+       return self.character.bars_num
 
 
    def return_player_bars_num(self, show:bool=False)-> int:
@@ -74,6 +106,13 @@ class Battle:
 
 
 
+   def display_player_max_health(self):
+       print(f"❤️ Player Max Health ️️: {Fore.GREEN} {self.character.max_bars_num}hp {Style.RESET_ALL}")
+
+
+   @staticmethod
+   def __display_opponent_max_health(character2):
+       print(f"❤️ Opponent Max Health ️: {Fore.GREEN} {character2.character.max_bars_num}hp {Style.RESET_ALL}")
 
 
 
@@ -95,10 +134,22 @@ class Battle:
 
 
    # note the * allows the function to take as many positional arguments
-   def grant_powers(self,*chosen_power: str) -> list:  # grants powers in respective to the character
+   def grant_powers(self,*chosen_power: str, message:bool =True) -> list:  # grants powers in respective to the character
        for weapon_name, weapon_info in self.character.powers_dict.items():
-           if weapon_name in chosen_power:self.character.powers[weapon_name] = weapon_info  # Use self.character
+           if weapon_name in chosen_power:
+               self.character.powers[weapon_name] = weapon_info  # Use self.character
+               if message:
+                   self.character.display_powers(True)
+                   self.unlocked_powers(weapon_name)
+
+
        return self.character.powers
+
+
+   @staticmethod
+   def unlocked_powers(weapon_name):
+       print(f"You have unlocked a new power: {weapon_name}!")
+       print()
 
 
    def delete_powers(self, *chosen_power: str) -> list:
@@ -199,13 +250,13 @@ class Battle:
            color_system = Fore.RED
        if net_player_hp > 0:  # positive net Health = HEAL / GAIN HEALTH
            print(
-               f"Health: {color_system}{self.character.health}{Fore.RESET} | {Fore.GREEN}{self.character.bars_num}HP{Fore.RESET} | {Fore.GREEN}You Gained: {net_player_hp}HP{Fore.RESET}")  # Use self.character
+               f"❤️ Health: {color_system}{self.character.health}{Fore.RESET} | {Fore.GREEN}{self.character.bars_num}HP{Fore.RESET} | {Fore.GREEN}You Gained: {net_player_hp}HP{Fore.RESET}")  # Use self.character
        elif net_player_hp < 0:  # negative net Health = LOSE HEALTH
            print(
-               f"Health: {color_system}{self.character.health}{Fore.RESET} | {Fore.GREEN}{self.character.bars_num}HP{Fore.RESET} | {Fore.RED}You Lost: {net_player_hp}HP{Fore.RESET}")  # Use self.character
+               f"❤️ Health: {color_system}{self.character.health}{Fore.RESET} | {Fore.GREEN}{self.character.bars_num}HP{Fore.RESET} | {Fore.RED}You Lost: {net_player_hp}HP{Fore.RESET}")  # Use self.character
        else:
            print(
-               f"Health: {color_system}{self.character.health}{Fore.RESET} | {Fore.GREEN}{self.character.bars_num}HP{Fore.RESET}")  # Use self.character
+               f"❤️ Health: {color_system}{self.character.health}{Fore.RESET} | {Fore.GREEN}{self.character.bars_num}HP{Fore.RESET}")  # Use self.character
 
 
        return self.character.bars_num
@@ -258,13 +309,13 @@ class Battle:
 
        if net_opponent_hp > 0:  # positive net Health = HEAL / GAIN HEALTH
            print(
-               f"Health: {color_system}{character2.character.health}{Fore.RESET} | {Fore.GREEN}{character2.character.bars_num}HP{Fore.RESET} | {Fore.GREEN}{character2.character.name} Gained: {net_opponent_hp}HP{Fore.RESET}")  # Use self.character
+               f"❤️ Health: {color_system}{character2.character.health}{Fore.RESET} | {Fore.GREEN}{character2.character.bars_num}HP{Fore.RESET} | {Fore.GREEN}{character2.character.name} Gained: {net_opponent_hp}HP{Fore.RESET}")  # Use self.character
        elif net_opponent_hp < 0:  # negative net Health = LOSE HEALTH
            print(
-               f"Health: {color_system}{character2.character.health}{Fore.RESET} | {Fore.GREEN}{character2.character.bars_num}HP{Fore.RESET} | {Fore.RED}{character2.character.name} Lost: {net_opponent_hp}HP{Fore.RESET}")  # Use self.character
+               f"❤️ Health: {color_system}{character2.character.health}{Fore.RESET} | {Fore.GREEN}{character2.character.bars_num}HP{Fore.RESET} | {Fore.RED}{character2.character.name} Lost: {net_opponent_hp}HP{Fore.RESET}")  # Use self.character
        else:
            print(
-               f"Health: {color_system}{character2.character.health}{Fore.RESET} | {Fore.GREEN}{character2.character.bars_num}HP{Fore.RESET}")  # Use self.character
+               f"❤️ Health: {color_system}{character2.character.health}{Fore.RESET} | {Fore.GREEN}{character2.character.bars_num}HP{Fore.RESET}")  # Use self.character
        return character2.character.bars_num
 
 
@@ -281,6 +332,7 @@ class Battle:
        self.display_powers()
        self.display_attack_dmg()
        self.display_health_information(net_player_hp)
+       self.display_player_max_health()
        self.health_limit_check()
 
 
@@ -291,6 +343,7 @@ class Battle:
        self.__display_attack_dmg_for_opponent(character2)
        self.__display_health_information_for_opponent(character2,
                                                       net_opponent_hp)
+       self.__display_opponent_max_health(character2)
        self.__health_limit_check_for_opponent(character2)
 
 
@@ -336,15 +389,15 @@ class Battle:
        if c1:
            if self.character.bars_num >= self.character.max_bars_num:  # A defined max health limit for player # Use self.character
                self.character.bars_num = self.character.max_bars_num  # Use self.character
-           self.character.health = "=" * int(
-               round(self.character.bars_num))  # Use self.character
+           self.character.health = self.character.symbol_of_health * int(
+               (round(self.character.bars_num)/self.character.scale_health))  # Use self.character
 
 
        if c2:
            if character2.character.bars_num >= character2.character.max_bars_num:  # A defined max health limit for opponent # Use self.character
                character2.character.bars_num = character2.character.max_bars_num  # Use self.character
-           character2.character.health = "=" * int(
-               round(character2.character.bars_num))  # Use self.character
+           character2.character.health = self.character.symbol_of_health * int(
+               (round(character2.character.bars_num)/self.character.scale_health))  # Use self.character
 
 
 
@@ -359,7 +412,51 @@ class Battle:
 
 
        while True:
-           print_fonts(text = f"Choices : {' 🦾 '.join(self.choices)} " , font_type = "italic", color=(250,150,200))  # Want to fight?
+           print_fonts(text = f"🦾 Choices: ", color=(150,90,200))  # Want to fight?
+           r,g,b = random.randint(100,200), random.randint(100,200), random.randint(100,200)
+           inc1 = 30
+           inc2 = 25
+           for choice in self.choices:
+               b += inc1
+               r += inc2
+
+
+               if b>= 255:
+                   inc1 *= -1
+                   b += inc1
+
+
+
+
+               if r>=255:
+                   inc2 *= -1
+                   r += inc2
+
+
+
+
+               if b<=0:
+                   inc1 *= -1
+                   b += inc1
+
+
+               if r<=0:
+                   inc2 *=-1
+                   r += inc2
+
+
+
+
+               if choice.lower().strip() != "special attack".lower().strip():
+                   print_fonts(text = f"* {choice}", color = (r,g,b))
+               else:
+                   print_fonts(text = f"* {choice}", color = (255,125,125))
+
+
+
+
+
+
            print_fonts(text = "What will you choose? ", font_type="bold", color=(200,170,255))
            if (attack_result := input("Choice: ").lower().strip()) in [choice.lower().strip() for choice in self.choices]: break
 
@@ -369,9 +466,9 @@ class Battle:
 
    @staticmethod
    def scene_changes_to(scene: str) -> str:
-       # print_fonts(text = "\n😎--------------------------------------------------------------------------------😎", color = (255,160,155))
-       print_fonts(text = f"\t\t\t\t-*-*-*-* {scene.upper()} *-*-*-*-\t\t\t\t", font_type = "italic", color = (255,200,150))
-       # print_fonts(text = "😎--------------------------------------------------------------------------------😎\n", color = (255,160,155))
+       print_fonts(text = "\n😎--------------------------------------------------------------------------------😎", color = (255,160,155))
+       print_fonts(text = f"-\t-\t-\t-\t-\t-\t-\t-*-*-*-* {scene.upper()} *-*-*-*-\t-\t-\t-\t-\t-\t-\t-", font_type = "italic", color = (255,200,150))
+       print_fonts(text = "😎--------------------------------------------------------------------------------😎\n", color = (255,160,155))
        return scene.upper()
 
 
@@ -393,7 +490,7 @@ class Battle:
        return character2.character.bars_num
 
 
-   def fight(self, character2):
+   def fight(self, character2, flee_enabled:bool = False):
        if (self.character.powers or character2.character.powers) and (
                (self.character.bars_num > 0) and (
                character2.character.bars_num > 0)):  # NEEDS A POWER before fighting # Use self.character
@@ -412,9 +509,12 @@ class Battle:
            player_turn = True
 
 
+           if not flee_enabled: self.choices.remove("Flee")
+           self.choices.append("Special Attack")
 
 
            while fighting:
+               weakest_weapon_dmg = 0
                while player_turn:
                    self.scene_changes_to("BATTLE STATS")
                    self.display_battle_info(character2, net_player_hp,
@@ -453,9 +553,8 @@ class Battle:
                            self._opponent_dmg_taken(character2, overall_player_dmg)
 
 
-                           if player_critical_dmg != 1.00:
-                               print("CRITICAL DAMAGE!")
-                               print(f"({player_dmg}) to ({overall_player_dmg}) by {(player_critical_dmg - 1.00) * 100}%")
+                           if player_critical_dmg != 1.00:print("CRITICAL DAMAGE!")
+                               # print(f"({player_dmg}) to ({overall_player_dmg}) by {(player_critical_dmg - 1.00) * 100}%")
 
 
                            print(f"You have used '{player_power_choice}' with attack_dmg of {overall_player_dmg}")
@@ -465,29 +564,33 @@ class Battle:
                        else:
                            print("Returning you back to the main scene...")
                    elif player_option_choose == "heal".lower().strip():
-                       if self.character.items:
-                           self.scene_changes_to("CHOICE SCENE")
+                       if self.character.bars_num < self.character.max_bars_num:
 
 
-                           healing_item, quantity = self.character.inventory.choose_item(include_healing_affect = True), 1
+                           if self.character.items:
+                               self.scene_changes_to("CHOICE SCENE")
+
+
+                               healing_item, quantity = self.character.inventory.choose_item(include_healing_affect = True), 1
 
 
 
 
-                           if healing_item != 'exit'.lower().strip():
-                               print()
-                               self.scene_changes_to("HEALING SCENE")
+                               if healing_item != 'exit'.lower().strip():
+                                   print()
+                                   self.scene_changes_to("HEALING SCENE")
 
 
-                               self.character.inventory.use_item(healing_item, quantity)
-                               player_turn = False
+                                   self.character.inventory.use_item(healing_item, quantity)
+                                   player_turn = False
+                               else:
+                                   print("Returning you back to the main scene...")
+
+
                            else:
-                               print("Returning you back to the main scene...")
-
-
+                               print(f"Sorry, it looks like you do not have any items. Choose another option. Exiting...")
                        else:
-                           print(f"Sorry, it looks like you do not have any items. Choose "
-                                 "another option")
+                           print("You can't heal any longer! Exiting...")
                    elif player_option_choose == "throw".lower().strip():
                        arrow = "-->"
                        if self.character.items:
@@ -529,9 +632,8 @@ class Battle:
 
 
 
-                                   if player_critical_dmg != 1.00:
-                                       print("CRITICAL DAMAGE!")
-                                       print(f"({player_dmg}) to ({overall_player_dmg}) by {(player_critical_dmg - 1.00) * 100}%")
+                                   if player_critical_dmg != 1.00: print("CRITICAL DAMAGE!")
+                                       # print(f"({player_dmg}) to ({overall_player_dmg}) by {(player_critical_dmg - 1.00) * 100}%")
 
 
 
@@ -553,16 +655,54 @@ class Battle:
 
 
                    elif player_option_choose == "flee".lower().strip():
-                       self.scene_changes_to("ESCAPING SCENE")
+                       if flee_enabled:
+                           self.scene_changes_to("ESCAPING SCENE")
 
 
-                       print(f"You have fled from the scene!")
-                       input("\n\t->\n")
-                       player_turn, fighting = False, False
-                       break
+                           print(f"You had fleen from the scene!")
+                           player_turn, fighting = False, False
+                           break
+                       else:
+                           print(f"You aren't able to flee from this fight!")
+
+
+
+
+                   elif player_option_choose == "special attack".lower().strip():
+                       special_attack = round(character2.character.bars_num * (1/(random.randint(a=6,b=7))))
+                       overall_player_dmg = special_attack
+                       self.scene_changes_to("FIGHTING SCENE")
+                       print("You used your karate moves!")
+                       print(f"You wiped {special_attack}hp away from your opponent.")
+                       self._opponent_dmg_taken(character2, overall_player_dmg)
+
+
+                       print("Your opponent got dizzy for a while! Choose another power move!")
+
+
+                       after_player_hp, after_opponent_hp = self.character.return_current_health(), character2.character.return_current_health()
+                       net_player_hp = self.net_health_calc(before_player_hp,
+                                                            after_player_hp)
+                       net_opponent_hp = self.net_health_calc(
+                           before_opponent_hp, after_opponent_hp)
+                       self.choices.remove("Special Attack")
+
+
+
+
+
+
                    else:
                        self.scene_changes_to("FIGHTING SCENE")
                        print(f"You have skipped a turn!")
+                       weakest_weapon = min(character2.character.powers.items(), key=lambda item: item[1]['damage'])
+
+
+                       weakest_weapon_dmg = weakest_weapon[1][character2.character.damage_tag]
+                       weakest_weapon_name =  weakest_weapon[0]
+                       print(f"You look at your opponent at the eye. 👁️ Their damage drops by their weakest item '{weakest_weapon_name}': -{weakest_weapon_dmg} dmg")
+
+
                        player_turn = False
                        continue
 
@@ -582,17 +722,16 @@ class Battle:
 
 
                    # OPPONENT ATTACK!
-                   if random.randint(a = 1, b = 7) < 10:
+                   if (random.randint(a = 1, b = 7) < 10) or (character2.character.bars_num >= character2.character.max_bars_num):
 
 
                        opponent_power_choice = random.choice(list(character2.character.powers.keys()))  # Use self.character
 
 
                        # OVERALL DAMAGE AFFECT FOR OPPONENT
-                       overall_opponent_dmg = round((opponent_dmg := round(character2.character.powers[opponent_power_choice][self.character.damage_tag] + character2.character.damage)) * (opponent_critical_dmg := self.determine_critical_chance()))
-                       if opponent_critical_dmg != 1.00:
-                           print("CRITICAL DAMAGE!")
-                           print(f"({opponent_dmg}) to ({overall_opponent_dmg}) by {(opponent_critical_dmg - 1.00) * 100}%")
+                       overall_opponent_dmg = round(round((opponent_dmg := round(character2.character.powers[opponent_power_choice][self.character.damage_tag] + character2.character.damage)) * (opponent_critical_dmg := self.determine_critical_chance())) - weakest_weapon_dmg)
+                       if opponent_critical_dmg != 1.00: print("CRITICAL DAMAGE!")
+                           # print(f"({opponent_dmg}) to ({overall_opponent_dmg}) by {(opponent_critical_dmg - 1.00) * 100}%")
                        print(f"{character2.character.name} has used '{opponent_power_choice}' with attack_dmg of {overall_opponent_dmg}")  # Use self.character
 
 
